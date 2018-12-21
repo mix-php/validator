@@ -1,5 +1,5 @@
 {
-  "name": "mixstart/mix-log",
+  "name": "mixstart/mix-validators",
   "description": "MixPHP 框架模块 http://www.mixphp.cn",
   "type": "framework",
   "keywords": [
@@ -20,7 +20,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Mix\\Log": "src/"
+      "Mix\\Validators": "src/"
     }
   }
 }
