@@ -19,21 +19,21 @@ class Validator extends BaseObject
 
     // 验证器类路径
     protected $_validators = [
-        'integer'      => '\Mix\Validators\IntegerValidator',
-        'double'       => '\Mix\Validators\DoubleValidator',
-        'alpha'        => '\Mix\Validators\AlphaValidator',
-        'alphaNumeric' => '\Mix\Validators\AlphaNumericValidator',
-        'string'       => '\Mix\Validators\StringValidator',
-        'in'           => '\Mix\Validators\InValidator',
-        'date'         => '\Mix\Validators\DateValidator',
-        'email'        => '\Mix\Validators\EmailValidator',
-        'phone'        => '\Mix\Validators\PhoneValidator',
-        'url'          => '\Mix\Validators\UrlValidator',
-        'compare'      => '\Mix\Validators\CompareValidator',
-        'match'        => '\Mix\Validators\MatchValidator',
-        'call'         => '\Mix\Validators\CallValidator',
-        'file'         => '\Mix\Validators\FileValidator',
-        'image'        => '\Mix\Validators\ImageValidator',
+        'integer'      => \Mix\Validators\IntegerValidator::class,
+        'double'       => \Mix\Validators\DoubleValidator::class,
+        'alpha'        => \Mix\Validators\AlphaValidator::class,
+        'alphaNumeric' => \Mix\Validators\AlphaNumericValidator::class,
+        'string'       => \Mix\Validators\StringValidator::class,
+        'in'           => \Mix\Validators\InValidator::class,
+        'date'         => \Mix\Validators\DateValidator::class,
+        'email'        => \Mix\Validators\EmailValidator::class,
+        'phone'        => \Mix\Validators\PhoneValidator::class,
+        'url'          => \Mix\Validators\UrlValidator::class,
+        'compare'      => \Mix\Validators\CompareValidator::class,
+        'match'        => \Mix\Validators\MatchValidator::class,
+        'call'         => \Mix\Validators\CallValidator::class,
+        'file'         => \Mix\Validators\FileValidator::class,
+        'image'        => \Mix\Validators\ImageValidator::class,
     ];
 
     // 错误
