@@ -2,13 +2,13 @@
 
 namespace Mix\Validators;
 
-use Mix\Core\BaseObject;
+use Mix\Core\DIObject;
 
 /**
  * 基础验证器类
  * @author LIUJIAN <coder.keda@gmail.com>
  */
-class BaseValidator extends BaseObject
+class BaseValidator extends DIObject
 {
 
     // 必填字段
