@@ -83,7 +83,7 @@ class BaseValidator extends BeanObject
         } else {
             if ($this instanceof \Mix\Validators\FileValidator) {
                 // 实例化文件对象
-                $this->mainValidator->$attribute = \Mix\Http\UploadFile::newInstance($attribute);
+                $this->mainValidator->$attribute = \Mix\Http\Message\UploadFile::newInstance($attribute);
             } else {
                 // 属性赋值
                 $this->mainValidator->$attribute = $this->attributeValue;
