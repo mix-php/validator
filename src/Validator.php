@@ -2,7 +2,7 @@
 
 namespace Mix\Validators;
 
-use Mix\Core\BeanObject;
+use Mix\Core\Bean\BeanObject;
 
 /**
  * Validator基类
