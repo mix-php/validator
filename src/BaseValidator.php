@@ -2,13 +2,13 @@
 
 namespace Mix\Validators;
 
-use Mix\Core\Bean\BeanObject;
+use Mix\Core\Bean\AbstractObject;
 
 /**
  * 基础验证器类
  * @author LIUJIAN <coder.keda@gmail.com>
  */
-class BaseValidator extends BeanObject
+class BaseValidator extends AbstractObject
 {
 
     // 必填字段
