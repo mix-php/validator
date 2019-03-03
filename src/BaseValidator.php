@@ -1,6 +1,6 @@
 <?php
 
-namespace Mix\Validators;
+namespace Mix\Validate;
 
 use Mix\Core\Bean\AbstractObject;
 
@@ -81,7 +81,7 @@ class BaseValidator extends AbstractObject
         if (!$result) {
             $this->mainValidator->$attribute = null;
         } else {
-            if ($this instanceof \Mix\Validators\FileValidator) {
+            if ($this instanceof \Mix\Validate\FileValidator) {
                 // 实例化文件对象
                 $this->mainValidator->$attribute = \Mix\Http\Message\UploadFile::newInstance($attribute);
             } else {
@@ -136,7 +136,7 @@ class BaseValidator extends AbstractObject
         $value = $this->attributeValue;
         if (!is_null($value) && !is_scalar($value)) {
             // 文件/图片验证器忽略该类型的验证
-            if ($this instanceof \Mix\Validators\FileValidator) {
+            if ($this instanceof \Mix\Validate\FileValidator) {
                 return true;
             }
             // 设置错误消息

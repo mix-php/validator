@@ -1,6 +1,6 @@
 <?php
 
-namespace Mix\Validators;
+namespace Mix\Validate;
 
 use Mix\Core\Bean\AbstractObject;
 
@@ -19,21 +19,21 @@ class Validator extends AbstractObject
 
     // 验证器类路径
     protected $_validators = [
-        'integer'      => \Mix\Validators\IntegerValidator::class,
-        'double'       => \Mix\Validators\DoubleValidator::class,
-        'alpha'        => \Mix\Validators\AlphaValidator::class,
-        'alphaNumeric' => \Mix\Validators\AlphaNumericValidator::class,
-        'string'       => \Mix\Validators\StringValidator::class,
-        'in'           => \Mix\Validators\InValidator::class,
-        'date'         => \Mix\Validators\DateValidator::class,
-        'email'        => \Mix\Validators\EmailValidator::class,
-        'phone'        => \Mix\Validators\PhoneValidator::class,
-        'url'          => \Mix\Validators\UrlValidator::class,
-        'compare'      => \Mix\Validators\CompareValidator::class,
-        'match'        => \Mix\Validators\MatchValidator::class,
-        'call'         => \Mix\Validators\CallValidator::class,
-        'file'         => \Mix\Validators\FileValidator::class,
-        'image'        => \Mix\Validators\ImageValidator::class,
+        'integer'      => \Mix\Validate\IntegerValidator::class,
+        'double'       => \Mix\Validate\DoubleValidator::class,
+        'alpha'        => \Mix\Validate\AlphaValidator::class,
+        'alphaNumeric' => \Mix\Validate\AlphaNumericValidator::class,
+        'string'       => \Mix\Validate\StringValidator::class,
+        'in'           => \Mix\Validate\InValidator::class,
+        'date'         => \Mix\Validate\DateValidator::class,
+        'email'        => \Mix\Validate\EmailValidator::class,
+        'phone'        => \Mix\Validate\PhoneValidator::class,
+        'url'          => \Mix\Validate\UrlValidator::class,
+        'compare'      => \Mix\Validate\CompareValidator::class,
+        'match'        => \Mix\Validate\MatchValidator::class,
+        'call'         => \Mix\Validate\CallValidator::class,
+        'file'         => \Mix\Validate\FileValidator::class,
+        'image'        => \Mix\Validate\ImageValidator::class,
     ];
 
     // 错误
