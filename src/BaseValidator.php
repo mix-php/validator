@@ -140,7 +140,7 @@ class BaseValidator extends AbstractObject
                 return true;
             }
             // 回调验证器忽略该类型的验证
-            if ($this instanceof \mix\validators\CallValidator) {
+            if ($this instanceof \Mix\Validate\CallValidator) {
                 return true;
             }
             // 设置错误消息
