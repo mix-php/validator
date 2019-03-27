@@ -6,7 +6,7 @@ use Mix\Core\Bean\AbstractObject;
 
 /**
  * 基础验证器类
- * @author LIUJIAN <coder.keda@gmail.com>
+ * @author liu,jian <coder.keda@gmail.com>
  */
 class BaseValidator extends AbstractObject
 {

@@ -4,7 +4,7 @@ namespace Mix\Validate;
 
 /**
  * ImageValidator类
- * @author LIUJIAN <coder.keda@gmail.com>
+ * @author liu,jian <coder.keda@gmail.com>
  */
 class ImageValidator extends FileValidator
 {

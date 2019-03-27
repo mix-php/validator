@@ -4,7 +4,7 @@ namespace Mix\Validate;
 
 /**
  * IntegerValidator类
- * @author LIUJIAN <coder.keda@gmail.com>
+ * @author liu,jian <coder.keda@gmail.com>
  */
 class IntegerValidator extends BaseValidator
 {
