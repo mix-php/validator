@@ -64,7 +64,7 @@ class Validate
     // 验证是否为手机
     public static function isPhone($value)
     {
-        return preg_match('/^1[34578]\d{9}$/i', $value) ? true : false;
+        return preg_match('/^1[3456789]\d{9}$/i', $value) ? true : false;
     }
 
     // 验证是否为网址
