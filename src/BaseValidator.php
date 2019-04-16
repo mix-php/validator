@@ -83,7 +83,11 @@ class BaseValidator extends AbstractObject
         } else {
             if ($this instanceof \Mix\Validate\FileValidator) {
                 // 实例化文件对象
-                $this->mainValidator->$attribute = \Mix\Http\Message\UploadFile::newInstance($attribute);
+                if(!empty($this->attributeValue['tmp_name']) && !empty($this->attributeValue['name']) && !empty($this->attributeValue['type'])){
+                    $this->mainValidator->$attribute = new \Mix\Http\Message\UploadFile($this->attributeValue);
+                }else{
+                    $this->mainValidator->$attribute = \Mix\Http\Message\UploadFile::newInstance($attribute);
+                }
             } else {
                 // 属性赋值
                 $this->mainValidator->$attribute = $this->attributeValue;
