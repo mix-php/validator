@@ -120,7 +120,7 @@ class BaseValidator extends AbstractObject
     protected function required()
     {
         $value = $this->attributeValue;
-        if ($this->isRequired && is_null($value)) {
+        if ($this->isRequired && (is_null($value) || $value === '')) {
             // 设置错误消息
             $defaultMessage = "{$this->attribute}不能为空.";
             $this->setError(__FUNCTION__, $defaultMessage);
