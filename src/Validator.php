@@ -2,13 +2,14 @@
 
 namespace Mix\Validate;
 
-use Mix\Bean\Object\AbstractObject;
+use Mix\Bean\BeanInjector;
 
 /**
- * Validator基类
+ * Class Validator
+ * @package Mix\Validate
  * @author liu,jian <coder.keda@gmail.com>
  */
-class Validator extends AbstractObject
+class Validator
 {
 
     // 全部属性
@@ -38,6 +39,15 @@ class Validator extends AbstractObject
 
     // 错误
     protected $_errors = [];
+
+    /**
+     * Authorization constructor.
+     * @param array $config
+     */
+    public function __construct(array $config)
+    {
+        BeanInjector::inject($this, $config);
+    }
 
     // 规则
     public function rules()
