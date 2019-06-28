@@ -1,22 +1,24 @@
 <?php
 
-namespace Mix\Validate;
+namespace Mix\Validate\Validator;
+
+use Mix\Validate\Validate;
 
 /**
- * CallValidator类
+ * MatchValidator类
  * @author liu,jian <coder.keda@gmail.com>
  */
-class CallValidator extends BaseValidator
+class MatchValidator extends BaseValidator
 {
 
     // 启用的选项
-    protected $_enabledOptions = ['callback'];
+    protected $_enabledOptions = ['pattern'];
 
-    // 回调验证
-    protected function callback($param)
+    // 正则验证
+    protected function pattern($param)
     {
         $value = $this->attributeValue;
-        if (!call_user_func_array($param, [$value])) {
+        if (!Validate::match($value, $param)) {
             // 设置错误消息
             $defaultMessage = "{$this->attribute}是无效的值.";
             $this->setError(__FUNCTION__, $defaultMessage);

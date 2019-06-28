@@ -1,8 +1,10 @@
 <?php
 
-namespace Mix\Validate;
+namespace Mix\Validate\Validator;
 
 use Mix\Bean\BeanInjector;
+use Psr\Http\Message\ServerRequestInterface;
+use Mix\Validate\Exception\InvalidArgumentException;
 
 /**
  * Class BaseValidator
@@ -32,6 +34,11 @@ class BaseValidator
 
     // 主验证器的引用
     public $mainValidator;
+
+    /**
+     * @var ServerRequestInterface
+     */
+    public $request;
 
     // 错误
     public $errors = [];
@@ -65,7 +72,7 @@ class BaseValidator
             // 预处理
             foreach ($this->options as $name => $option) {
                 if (!in_array($name, $this->_enabledOptions)) {
-                    throw new \Mix\Exception\InvalidArgumentException("属性 {$this->attribute} 的验证选项 {$name} 不存在");
+                    throw new InvalidArgumentException("属性 {$this->attribute} 的验证选项 {$name} 不存在");
                 }
                 // 不存在的选项转为设置
                 if (!method_exists($this, $name)) {
@@ -91,7 +98,7 @@ class BaseValidator
         if (!$result) {
             $this->mainValidator->$attribute = null;
         } else {
-            if ($this instanceof \Mix\Validate\FileValidator) {
+            if ($this instanceof FileValidator) {
                 // 实例化文件对象
                 $this->mainValidator->$attribute = \Mix\Http\Message\UploadFile::newInstance($attribute);
             } else {
@@ -146,11 +153,11 @@ class BaseValidator
         $value = $this->attributeValue;
         if (!is_null($value) && !is_scalar($value)) {
             // 文件/图片验证器忽略该类型的验证
-            if ($this instanceof \Mix\Validate\FileValidator) {
+            if ($this instanceof FileValidator) {
                 return true;
             }
             // 回调验证器忽略该类型的验证
-            if ($this instanceof \Mix\Validate\CallValidator) {
+            if ($this instanceof CallValidator) {
                 return true;
             }
             // 设置错误消息

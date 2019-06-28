@@ -3,6 +3,8 @@
 namespace Mix\Validate;
 
 use Mix\Bean\BeanInjector;
+use Mix\Validate\Exception\InvalidArgumentException;
+use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * Class Validator
@@ -15,26 +17,31 @@ class Validator
     // 全部属性
     public $attributes;
 
+    /**
+     * @var ServerRequestInterface
+     */
+    public $request;
+
     // 当前场景
     protected $_scenario;
 
     // 验证器类路径
     protected $_validators = [
-        'integer'      => \Mix\Validate\IntegerValidator::class,
-        'double'       => \Mix\Validate\DoubleValidator::class,
-        'alpha'        => \Mix\Validate\AlphaValidator::class,
-        'alphaNumeric' => \Mix\Validate\AlphaNumericValidator::class,
-        'string'       => \Mix\Validate\StringValidator::class,
-        'in'           => \Mix\Validate\InValidator::class,
-        'date'         => \Mix\Validate\DateValidator::class,
-        'email'        => \Mix\Validate\EmailValidator::class,
-        'phone'        => \Mix\Validate\PhoneValidator::class,
-        'url'          => \Mix\Validate\UrlValidator::class,
-        'compare'      => \Mix\Validate\CompareValidator::class,
-        'match'        => \Mix\Validate\MatchValidator::class,
-        'call'         => \Mix\Validate\CallValidator::class,
-        'file'         => \Mix\Validate\FileValidator::class,
-        'image'        => \Mix\Validate\ImageValidator::class,
+        'integer'      => \Mix\Validate\Validator\IntegerValidator::class,
+        'double'       => \Mix\Validate\Validator\DoubleValidator::class,
+        'alpha'        => \Mix\Validate\Validator\AlphaValidator::class,
+        'alphaNumeric' => \Mix\Validate\Validator\AlphaNumericValidator::class,
+        'string'       => \Mix\Validate\Validator\StringValidator::class,
+        'in'           => \Mix\Validate\Validator\InValidator::class,
+        'date'         => \Mix\Validate\Validator\DateValidator::class,
+        'email'        => \Mix\Validate\Validator\EmailValidator::class,
+        'phone'        => \Mix\Validate\Validator\PhoneValidator::class,
+        'url'          => \Mix\Validate\Validator\UrlValidator::class,
+        'compare'      => \Mix\Validate\Validator\CompareValidator::class,
+        'match'        => \Mix\Validate\Validator\MatchValidator::class,
+        'call'         => \Mix\Validate\Validator\CallValidator::class,
+        'file'         => \Mix\Validate\Validator\FileValidator::class,
+        'image'        => \Mix\Validate\Validator\ImageValidator::class,
     ];
 
     // 错误
@@ -72,10 +79,10 @@ class Validator
     {
         $scenarios = $this->scenarios();
         if (!isset($scenarios[$scenario])) {
-            throw new \Mix\Exception\InvalidArgumentException("场景不存在：{$scenario}");
+            throw new InvalidArgumentException("场景不存在：{$scenario}");
         }
         if (!isset($scenarios[$scenario]['required'])) {
-            throw new \Mix\Exception\InvalidArgumentException("场景 {$scenario} 未定义 required 选项");
+            throw new InvalidArgumentException("场景 {$scenario} 未定义 required 选项");
         }
         if (!isset($scenarios[$scenario]['optional'])) {
             $scenarios[$scenario]['optional'] = [];
@@ -87,7 +94,7 @@ class Validator
     public function validate()
     {
         if (!isset($this->_scenario)) {
-            throw new \Mix\Exception\InvalidArgumentException("场景未设置");
+            throw new InvalidArgumentException("场景未设置");
         }
         $this->_errors      = [];
         $scenario           = $this->_scenario;
@@ -97,7 +104,7 @@ class Validator
         // 判断是否定义了规则
         foreach ($scenarioAttributes as $attribute) {
             if (!isset($rules[$attribute])) {
-                throw new \Mix\Exception\InvalidArgumentException("属性 {$attribute} 未定义规则");
+                throw new InvalidArgumentException("属性 {$attribute} 未定义规则");
             }
         }
         // 验证器验证
@@ -107,7 +114,7 @@ class Validator
             }
             $validatorType = array_shift($rule);
             if (!isset($this->_validators[$validatorType])) {
-                throw new \Mix\Exception\InvalidArgumentException("属性 {$attribute} 的验证类型 {$validatorType} 不存在");
+                throw new InvalidArgumentException("属性 {$attribute} 的验证类型 {$validatorType} 不存在");
             }
             $attributeValue = isset($this->attributes[$attribute]) ? $this->attributes[$attribute] : null;
             // 实例化
@@ -119,6 +126,7 @@ class Validator
                 'attributeValue' => $attributeValue,
                 'messages'       => $messages,
                 'attributes'     => $this->attributes,
+                'request'        => $this->request,
             ]);
             $validator->mainValidator = $this;
             // 验证

@@ -1,6 +1,8 @@
 <?php
 
-namespace Mix\Validate;
+namespace Mix\Validate\Validator;
+
+use Mix\Validate\Validate;
 
 /**
  * DateValidator类

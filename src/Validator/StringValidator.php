@@ -1,6 +1,6 @@
 <?php
 
-namespace Mix\Validate;
+namespace Mix\Validate\Validator;
 
 /**
  * StringValidator类
