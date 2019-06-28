@@ -98,13 +98,8 @@ class BaseValidator
         if (!$result) {
             $this->mainValidator->$attribute = null;
         } else {
-            if ($this instanceof FileValidator) {
-                // 实例化文件对象
-                $this->mainValidator->$attribute = \Mix\Http\Message\UploadFile::newInstance($attribute);
-            } else {
-                // 属性赋值
-                $this->mainValidator->$attribute = $this->attributeValue;
-            }
+            // 属性赋值
+            $this->mainValidator->$attribute = $this->attributeValue;
         }
         // 返回
         return $result;
