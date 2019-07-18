@@ -28,9 +28,9 @@ class FileValidator extends BaseValidator
     {
         parent::__construct($config);
         // 获取文件信息
-        /** @var UploadedFileInterface[] $upload */
-        $upload               = $this->request->getUploadedFiles();
-        $this->attributeValue = $upload[$this->attribute] ?? null;
+        /** @var UploadedFileInterface[] $uploadedFiles */
+        $uploadedFiles        = $this->request->getUploadedFiles();
+        $this->attributeValue = $uploadedFiles[$this->attribute] ?? null;
     }
 
     // 上传验证
