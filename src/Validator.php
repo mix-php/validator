@@ -2,7 +2,6 @@
 
 namespace Mix\Validate;
 
-use Mix\Bean\BeanInjector;
 use Mix\Validate\Exception\InvalidArgumentException;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -14,18 +13,24 @@ use Psr\Http\Message\ServerRequestInterface;
 class Validator
 {
 
-    // 全部属性
-    public $attributes;
+    /**
+     * @var array
+     */
+    public $attributes = [];
 
     /**
      * @var ServerRequestInterface
      */
     public $request;
 
-    // 当前场景
-    protected $_scenario;
+    /**
+     * @var string
+     */
+    protected $_scenario = '';
 
-    // 验证器类路径
+    /**
+     * @var array
+     */
     protected $_validators = [
         'integer'      => \Mix\Validate\Validator\IntegerValidator::class,
         'double'       => \Mix\Validate\Validator\DoubleValidator::class,
@@ -44,38 +49,54 @@ class Validator
         'image'        => \Mix\Validate\Validator\ImageValidator::class,
     ];
 
-    // 错误
+    /**
+     * @var array
+     */
     protected $_errors = [];
 
     /**
-     * Authorization constructor.
-     * @param array $config
+     * Validator constructor.
+     * @param array $attributes
+     * @param ServerRequestInterface|null $request
      */
-    public function __construct(array $config)
+    public function __construct(array $attributes, ServerRequestInterface $request = null)
     {
-        BeanInjector::inject($this, $config);
+        $this->attributes = $attributes;
+        $this->request    = $request;
     }
 
-    // 规则
+    /**
+     * 规则
+     * @return array
+     */
     public function rules()
     {
         return [];
     }
 
-    // 场景
+    /**
+     * 场景
+     * @return array
+     */
     public function scenarios()
     {
         return [];
     }
 
-    // 消息
+    /**
+     * 消息
+     * @return array
+     */
     public function messages()
     {
         return [];
     }
 
-    // 设置当前场景
-    public function setScenario($scenario)
+    /**
+     * 设置当前场景
+     * @param string $scenario
+     */
+    public function setScenario(string $scenario)
     {
         $scenarios = $this->scenarios();
         if (!isset($scenarios[$scenario])) {
@@ -90,7 +111,10 @@ class Validator
         $this->_scenario = $scenarios[$scenario];
     }
 
-    // 验证
+    /**
+     * 验证
+     * @return bool
+     */
     public function validate()
     {
         if (!isset($this->_scenario)) {
@@ -138,13 +162,19 @@ class Validator
         return empty($this->_errors);
     }
 
-    // 返回全部错误
+    /**
+     * 返回全部错误
+     * @return array
+     */
     public function getErrors()
     {
         return $this->_errors;
     }
 
-    // 返回一条错误
+    /**
+     * 返回一条错误
+     * @return string
+     */
     public function getError()
     {
         $errors = $this->_errors;
