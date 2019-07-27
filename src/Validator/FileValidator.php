@@ -2,6 +2,7 @@
 
 namespace Mix\Validate\Validator;
 
+use Mix\Validate\Exception\InvalidArgumentException;
 use Psr\Http\Message\UploadedFileInterface;
 
 /**
@@ -27,6 +28,10 @@ class FileValidator extends BaseValidator
     public function __construct(array $config)
     {
         parent::__construct($config);
+        // 检测request
+        if (!$this->request) {
+            throw new InvalidArgumentException('Validator constructor $request cannot be empty');
+        }
         // 获取文件信息
         /** @var UploadedFileInterface[] $uploadedFiles */
         $uploadedFiles        = $this->request->getUploadedFiles();

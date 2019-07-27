@@ -36,7 +36,7 @@ class BaseValidator
     public $mainValidator;
 
     /**
-     * @var ServerRequestInterface
+     * @var ServerRequestInterface|null
      */
     public $request;
 
