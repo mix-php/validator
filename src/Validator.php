@@ -2,8 +2,9 @@
 
 namespace Mix\Validate;
 
+use Mix\Bean\BeanInjector;
 use Mix\Validate\Exception\InvalidArgumentException;
-use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\UploadedFileInterface;
 
 /**
  * Class Validator
@@ -19,9 +20,9 @@ class Validator
     public $attributes = [];
 
     /**
-     * @var ServerRequestInterface
+     * @var UploadedFileInterface[]
      */
-    public $request;
+    public $uploadedFiles = [];
 
     /**
      * @var string
@@ -57,12 +58,15 @@ class Validator
     /**
      * Validator constructor.
      * @param array $attributes
-     * @param ServerRequestInterface|null $request
+     * @param UploadedFileInterface[] $uploadedFiles
+     * @throws \PhpDocReader\AnnotationException
+     * @throws \ReflectionException
      */
-    public function __construct(array $attributes, ServerRequestInterface $request = null)
+    public function __construct(array $attributes, array $uploadedFiles = [])
     {
         $this->attributes = $attributes;
-        $this->request    = $request;
+        // 注入带类型数组
+        BeanInjector::inject($this, $uploadedFiles ? ['uploadedFiles' => $uploadedFiles] : []);
     }
 
     /**
@@ -150,7 +154,7 @@ class Validator
                 'attributeValue' => $attributeValue,
                 'messages'       => $messages,
                 'attributes'     => $this->attributes,
-                'request'        => $this->request,
+                'uploadedFiles'  => $this->uploadedFiles,
             ]);
             $validator->mainValidator = $this;
             // 验证

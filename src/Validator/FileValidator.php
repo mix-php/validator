@@ -6,19 +6,29 @@ use Mix\Validate\Exception\InvalidArgumentException;
 use Psr\Http\Message\UploadedFileInterface;
 
 /**
- * FileValidator类
+ * Class FileValidator
+ * @package Mix\Validate\Validator
  * @author liu,jian <coder.keda@gmail.com>
  */
 class FileValidator extends BaseValidator
 {
 
-    // 初始化选项
+    /**
+     * 初始化选项
+     * @var array
+     */
     protected $_initOptions = ['upload'];
 
-    // 启用的选项
+    /**
+     * 启用的选项
+     * @var array
+     */
     protected $_enabledOptions = ['mimes', 'maxSize'];
 
-    // 验证器名称
+    /**
+     * 验证器名称
+     * @var string
+     */
     protected $_name = '文件';
 
     /**
@@ -28,17 +38,15 @@ class FileValidator extends BaseValidator
     public function __construct(array $config)
     {
         parent::__construct($config);
-        // 检测request
-        if (!$this->request) {
-            throw new InvalidArgumentException('Validator constructor $request cannot be empty');
-        }
         // 获取文件信息
-        /** @var UploadedFileInterface[] $uploadedFiles */
-        $uploadedFiles        = $this->request->getUploadedFiles();
-        $this->attributeValue = $uploadedFiles[$this->attribute] ?? null;
+        $uploadedFiles        = $this->uploadedFiles;
+        $this->attributeValue = $uploadedFiles[$this->attribute] ?? null; // attributeValue = null 时该类的全部验证方法不会被执行
     }
 
-    // 上传验证
+    /**
+     * 上传验证
+     * @return bool
+     */
     protected function upload()
     {
         /** @var UploadedFileInterface $value */
@@ -78,7 +86,11 @@ class FileValidator extends BaseValidator
         return true;
     }
 
-    // MIME类型验证
+    /**
+     * MIME类型验证
+     * @param $param
+     * @return bool
+     */
     protected function mimes($param)
     {
         /** @var UploadedFileInterface $value */
@@ -93,7 +105,11 @@ class FileValidator extends BaseValidator
         return true;
     }
 
-    // 最大文件大小效验
+    /**
+     * 最大文件大小效验
+     * @param $param
+     * @return bool
+     */
     protected function maxSize($param)
     {
         /** @var UploadedFileInterface $value */

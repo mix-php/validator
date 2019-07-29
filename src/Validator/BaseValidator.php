@@ -3,8 +3,10 @@
 namespace Mix\Validate\Validator;
 
 use Mix\Bean\BeanInjector;
+use Mix\Validate\Validator;
 use Psr\Http\Message\ServerRequestInterface;
 use Mix\Validate\Exception\InvalidArgumentException;
+use Psr\Http\Message\UploadedFileInterface;
 
 /**
  * Class BaseValidator
@@ -14,42 +16,76 @@ use Mix\Validate\Exception\InvalidArgumentException;
 class BaseValidator
 {
 
-    // 必填字段
+    /**
+     * 必填字段
+     * @var bool
+     */
     public $isRequired;
 
-    // 需要验证的选项
+    /**
+     * 需要验证的选项
+     * @var array
+     */
     public $options;
 
-    // 当前属性名
+    /**
+     * 当前属性名
+     * @var string
+     */
     public $attribute;
 
-    // 当前属性值
+    /**
+     * 当前属性值
+     * @var mixed
+     */
     public $attributeValue;
 
-    // 全部消息
+    /**
+     * 全部消息
+     * @var array
+     */
     public $messages;
 
-    // 全部属性
+    /**
+     * 全部属性
+     * @var array
+     */
     public $attributes;
 
-    // 主验证器的引用
+    /**
+     * 主验证器的引用
+     * @var Validator
+     */
     public $mainValidator;
 
     /**
-     * @var ServerRequestInterface|null
+     * 上传的文件
+     * @var UploadedFileInterface[]
      */
-    public $request;
+    public $uploadedFiles = [];
 
-    // 错误
+    /**
+     * 错误
+     * @var array
+     */
     public $errors = [];
 
-    // 设置
+    /**
+     * 设置
+     * @var array
+     */
     protected $_settings = [];
 
-    // 初始化选项
+    /**
+     * 初始化选项
+     * @var array
+     */
     protected $_initOptions = [];
 
-    // 启用的选项
+    /**
+     * 启用的选项
+     * @var array
+     */
     protected $_enabledOptions = [];
 
     /**
@@ -61,7 +97,10 @@ class BaseValidator
         BeanInjector::inject($this, $config);
     }
 
-    // 验证
+    /**
+     * 验证
+     * @return bool
+     */
     public function validate()
     {
         // 清扫数据
@@ -105,7 +144,12 @@ class BaseValidator
         return $result;
     }
 
-    // 获取消息
+    /**
+     * 获取消息
+     * @param $attribute
+     * @param $option
+     * @return mixed|null
+     */
     protected function getMessage($attribute, $option)
     {
         $messages = $this->messages;
@@ -118,7 +162,11 @@ class BaseValidator
         return null;
     }
 
-    // 设置错误消息
+    /**
+     * 设置错误消息
+     * @param $option
+     * @param $defaultMessage
+     */
     protected function setError($option, $defaultMessage)
     {
         $message = $this->getMessage($this->attribute, $option);
@@ -128,7 +176,10 @@ class BaseValidator
         $this->errors[$option] = $message;
     }
 
-    // 必需验证
+    /**
+     * 必需验证
+     * @return bool
+     */
     protected function required()
     {
         $value = $this->attributeValue;
@@ -142,7 +193,10 @@ class BaseValidator
         return true;
     }
 
-    // 标量类型验证
+    /**
+     * 标量类型验证
+     * @return bool
+     */
     protected function scalar()
     {
         $value = $this->attributeValue;
@@ -164,7 +218,11 @@ class BaseValidator
         return true;
     }
 
-    // 无符号验证
+    /**
+     * 无符号验证
+     * @param $param
+     * @return bool
+     */
     protected function unsigned($param)
     {
         $value = $this->attributeValue;
@@ -178,7 +236,11 @@ class BaseValidator
         return true;
     }
 
-    // 最小数值验证
+    /**
+     * 最小数值验证
+     * @param $param
+     * @return bool
+     */
     protected function min($param)
     {
         $value = $this->attributeValue;
@@ -192,7 +254,11 @@ class BaseValidator
         return true;
     }
 
-    // 最大数值验证
+    /**
+     * 最大数值验证
+     * @param $param
+     * @return bool
+     */
     protected function max($param)
     {
         $value = $this->attributeValue;
@@ -206,7 +272,11 @@ class BaseValidator
         return true;
     }
 
-    // 固定长度验证
+    /**
+     * 固定长度验证
+     * @param $param
+     * @return bool
+     */
     protected function length($param)
     {
         $value = $this->attributeValue;
@@ -220,7 +290,11 @@ class BaseValidator
         return true;
     }
 
-    // 最小长度验证
+    /**
+     * 最小长度验证
+     * @param $param
+     * @return bool
+     */
     protected function minLength($param)
     {
         $value = $this->attributeValue;
@@ -234,7 +308,11 @@ class BaseValidator
         return true;
     }
 
-    // 最大长度验证
+    /**
+     * 最大长度验证
+     * @param $param
+     * @return bool
+     */
     protected function maxLength($param)
     {
         $value = $this->attributeValue;
