@@ -107,7 +107,7 @@ class Validator
             throw new InvalidArgumentException("场景不存在：{$scenario}");
         }
         if (!isset($scenarios[$scenario]['required'])) {
-            throw new InvalidArgumentException("场景 {$scenario} 未定义 required 选项");
+            $scenarios[$scenario]['required'] = [];
         }
         if (!isset($scenarios[$scenario]['optional'])) {
             $scenarios[$scenario]['optional'] = [];
