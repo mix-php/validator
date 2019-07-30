@@ -64,9 +64,11 @@ class Validator
      */
     public function __construct(array $attributes, array $uploadedFiles = [])
     {
-        $this->attributes = $attributes;
-        // 注入带类型数组
-        BeanInjector::inject($this, $uploadedFiles ? ['uploadedFiles' => $uploadedFiles] : []);
+        // 为了效验对象数组类型，使用BeanInjector
+        BeanInjector::inject($this, [
+            'attributes'    => $attributes,
+            'uploadedFiles' => $uploadedFiles,
+        ]);
     }
 
     /**
