@@ -59,8 +59,6 @@ class Validator
      * Validator constructor.
      * @param array $attributes
      * @param UploadedFileInterface[] $uploadedFiles
-     * @throws \PhpDocReader\AnnotationException
-     * @throws \ReflectionException
      */
     public function __construct(array $attributes, array $uploadedFiles = [])
     {
