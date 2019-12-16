@@ -107,7 +107,7 @@ class BaseValidator
         $this->errors    = [];
         $this->_settings = [];
         // 验证
-        if ($this->required() && $this->scalar() && !is_null($this->attributeValue)) {
+        if ($this->required() && $this->scalar() && !(is_null($this->attributeValue) || $this->attributeValue === '')) {
             // 预处理
             foreach ($this->options as $name => $option) {
                 if (!in_array($name, $this->_enabledOptions)) {
